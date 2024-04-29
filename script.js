@@ -12,7 +12,7 @@ let food = generateFood();
 let highScore = 0;
 let direction = 'right';
 let gameInterval;
-let gameSpeedDelay = 200;
+let gameDelay = 200;
 let gameStarted = false;
 
 function draw() {
@@ -83,9 +83,9 @@ function move() {
     clearInterval(gameInterval); // Clear past interval
     gameInterval = setInterval(() => {
       move();
-      checkCollision();
+      checkCollisions();
       draw();
-    }, gameSpeedDelay);
+    }, gameDelay);
   } else {
     snake.pop();
   }
@@ -97,9 +97,9 @@ function startGame() {
   logo.style.display = 'none';
   gameInterval = setInterval(() => {
     move();
-    checkCollision();
+    checkCollisions();
     draw();
-  }, gameSpeedDelay);
+  }, gameDelay);
 }
 
 // Keypress event listener
@@ -130,19 +130,19 @@ function handleKeyPress(event) {
 document.addEventListener('keydown', handleKeyPress);
 
 function increaseSpeed() {
-  //   console.log(gameSpeedDelay);
-  if (gameSpeedDelay > 150) {
-    gameSpeedDelay -= 5;
-  } else if (gameSpeedDelay > 100) {
-    gameSpeedDelay -= 3;
-  } else if (gameSpeedDelay > 50) {
-    gameSpeedDelay -= 2;
-  } else if (gameSpeedDelay > 25) {
-    gameSpeedDelay -= 1;
+  //   console.log(gameDelay);
+  if (gameDelay > 150) {
+    gameDelay -= 5;
+  } else if (gameDelay > 100) {
+    gameDelay -= 3;
+  } else if (gameDelay > 50) {
+    gameDelay -= 2;
+  } else if (gameDelay > 25) {
+    gameDelay -= 1;
   }
 }
 
-function checkCollision() {
+function checkCollisions() {
   const head = snake[0];
 
   if (head.x < 1 || head.x > gridSize || head.y < 1 || head.y > gridSize) {
@@ -162,7 +162,7 @@ function resetGame() {
   snake = [{ x: 10, y: 10 }];
   food = generateFood();
   direction = 'right';
-  gameSpeedDelay = 200;
+  gameDelay = 200;
   updateScore();
 }
 
